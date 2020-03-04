@@ -3,6 +3,7 @@ project(edward)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_subdirectory(test1)
-add_subdirectory(test2)
+add_subdirectory(1_simple_finctions)
+add_subdirectory(2_array_finctions)
+add_subdirectory(google_tests_lib)
 
