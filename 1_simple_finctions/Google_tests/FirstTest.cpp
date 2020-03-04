@@ -5,13 +5,13 @@
 #include "gtest/gtest.h"
 #include "../functions.h"
 
-TEST(Test1, TestSumIntegers){
+TEST(SimpleFunctionsTests, TestSumIntegers){
 
     int res = sum(1,2);
     ASSERT_EQ(3, res);
 }
 
-TEST(Test1, TestSumPointers){
+TEST(SimpleFunctionsTests, TestSumPointers){
 
     int a = 4;
     int b = 3;

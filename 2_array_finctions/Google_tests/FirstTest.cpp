@@ -5,8 +5,7 @@
 #include "gtest/gtest.h"
 #include "../functions.h"
 
-TEST(Test1, TestSumIntegers){
-
+TEST(ArrayFunctionsTests, TestDummy){
     ASSERT_EQ(2, 2);
 }
 
