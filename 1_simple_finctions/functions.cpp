@@ -11,3 +11,31 @@ int sum(int a, int b) {
 int sum(int* a, int* b) {
     return *a + *b;
 }
+
+void swap(int A[], int i, int j){
+    int temp = A[i];
+    A[i] = A[j];
+    A[j] = temp;
+}
+
+int minDigit(int A[], int lowIndex, int highIndex){
+    return A[minIndex(A, 0, 4)];;
+}
+
+int minIndex(int A[], int lowIndex, int highIndex){
+    int minIndex = lowIndex;
+    for(int i = lowIndex; i < highIndex; i ++) {
+        if (A[minIndex] > A[i + 1]){
+            minIndex = i + 1;
+        }
+    }
+    return minIndex;
+}
+
+void changeling(int A[], int lowIndex, int highIndex) {
+    int size = highIndex - lowIndex;
+    for (int i = lowIndex; i <= size/2; i++) {
+        swap(A, i, highIndex - i);
+    }
+}
+
