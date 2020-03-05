@@ -65,3 +65,66 @@ TEST(SimpleFunctionsTests, TestChangeling1){
     ASSERT_EQ(massive[3], buffer[3]);
     ASSERT_EQ(massive[4], buffer[4]);
 }
+
+TEST(SimpleFunctionsTests, TestGlue){
+    int buffer[10];
+    for(int j = 0; j < 10; j++){
+        buffer[j] = 0;
+    }
+    int massive1[5] ={11, 22, 33, 44, 55} ;
+    int massive2[5] ={66, 77, 88, 99, 10} ;
+    int expectedBuffer[10] ={11, 22, 33, 44, 55, 66, 77, 88, 99, 10} ;
+    glue(buffer, massive1, massive2, 5, 5);
+    for (int i = 0; i < 10; i++){
+        ASSERT_EQ(expectedBuffer[i], buffer[i]);
+    }
+}
+
+TEST(SimpleFunctionsTests, TestSumFunction){
+    int buffer[10];
+    int massive1[5] ={11, 22, 33, 44, 55} ;
+    int massive2[5] ={66, 77, 88, 99, 10} ;
+    int expectedBuffer[5] ={77, 99, 121, 143, 65} ;
+    sumFunction(buffer, massive1, massive2, 5);
+    for (int i = 0; i < 5; i++){
+        ASSERT_EQ(expectedBuffer[i], buffer[i]);
+    }
+}
+
+TEST(SimpleFunctionsTests, TestMatrix){
+    const int length = 5;
+    int massive[5][5];
+    for(int j = 0; j < length; j++) {
+        for (int i = 0; i < length; i++) {
+            massive[j][i] = 0;
+        }
+    }
+    massive[0][0] = 11;
+    massive[0][1] = 22;
+    massive[0][2] = 33;
+    massive[0][3] = 44;
+    massive[0][4] = 55;
+
+    matrix((int *)massive, length);
+
+    int expectedMassive[5]={11,22,33,44,55};
+    int expectedMassive1[5]={0,33,55,77,99};
+    int expectedMassive2[5]={0,0,88,132,176};
+    int expectedMassive3[5]={0,0,0,220,308};
+    int expectedMassive4[5]={0,0,0,0,528};
+        for (int i = 0; i < length; i++) {
+            ASSERT_EQ(expectedMassive[i], massive[0][i]);
+        }
+    for (int i = 0; i < length; i++) {
+        ASSERT_EQ(expectedMassive1[i], massive[1][i]);
+    }
+    for (int i = 0; i < length; i++) {
+        ASSERT_EQ(expectedMassive2[i], massive[2][i]);
+    }
+    for (int i = 0; i < length; i++) {
+        ASSERT_EQ(expectedMassive3[i], massive[3][i]);
+    }
+    for (int i = 0; i < length; i++) {
+        ASSERT_EQ(expectedMassive4[i], massive[4][i]);
+    }
+}
