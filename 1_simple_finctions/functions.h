@@ -13,4 +13,7 @@ void changeling(int A[], int lowIndex, int highIndex);
 void glue(int A[], int B[], int C[], int  sizeOfB, int sizeOfC);
 void sumFunction(int A[], int B[], int C[], int  size);
 void matrix(int *A, int length);
+void getDigit(char *string, int size, int *digits);
+void artFunction(int x1, int y1, int x2, int y2, int size, int *massive);
+void LineProcessing(int num, char *word);
 #endif //EDWARD_FUNCTIONS_H
