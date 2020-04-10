@@ -86,3 +86,22 @@ void LineProcessing(int num, char *word){
         }
     }
 }
+
+char *WordsInLine(char *protoBuffer, char *buffer){
+    int i = 0;
+    buffer[0] = 0;
+    char *words[100];
+    char *pch;
+    pch = strtok(protoBuffer, " ");
+    while (pch != NULL) {
+        words[i++] = pch;
+        pch = strtok(NULL, " ");
+    }
+    for(int j = i -1; j >= 0; j--){
+        strcat(buffer, words[j]);
+        if(j != 0){
+            strcat(buffer, " ");
+        }
+    }
+    return buffer;
+}
