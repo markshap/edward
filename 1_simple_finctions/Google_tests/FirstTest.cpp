@@ -189,7 +189,7 @@ TEST (SimpleFunctionsTests, TestLineProcessing){
     char *pch;
     char buffer[100] = "The owls are not what they seem";
     char expectedBuffer[100] = "The owlS are not whaT theY seeM";
-    int wordCount = strlen(buffer);
+    int symbolCount = strlen(buffer);
     int num = 4;
     pch = strtok(buffer, " ");
     while(pch != NULL){
@@ -199,12 +199,12 @@ TEST (SimpleFunctionsTests, TestLineProcessing){
             printf(" ");
         }
     }
-    for(int j = 0; j < wordCount-1; j++){
+    for(int j = 0; j < symbolCount - 1; j++){
         if(buffer[j]=='\0'){
             buffer[j] = ' ';
         }
     }
-    for (int i = 0; i < wordCount; i++) {
+    for (int i = 0; i < symbolCount; i++) {
         ASSERT_EQ(expectedBuffer[i], buffer[i]);
     }
 }
@@ -213,9 +213,16 @@ TEST (SimpleFunctionsTests, TestWordsInLine) {
     char protoBuffer[100] = "The owls are not what they seem";
     char buffer[100];
     char expectedBuffer[34] = "seem they what not are owls The";
-    int wordCount = strlen(buffer);
+    int symbolCount = strlen(buffer);
     WordsInLine(protoBuffer, buffer);
-    for (int i = 0; i < wordCount; i++) {
+    for (int i = 0; i < symbolCount; i++) {
         ASSERT_EQ(expectedBuffer[i], buffer[i]);
     }
+}
+
+TEST (SimpleFunctionsTests, TestArrayAnalysis) {
+    double buffer[11] = {22, 13, 45, 78, 22, 4, 22, 22, 13, 78, 33};
+    int expectedResult = 6;
+    int result = ArrayAnalysis(11, buffer);
+    ASSERT_EQ(expectedResult, result);
 }

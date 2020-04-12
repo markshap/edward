@@ -105,3 +105,18 @@ char *WordsInLine(char *protoBuffer, char *buffer){
     }
     return buffer;
 }
+
+int ArrayAnalysis( int N, double buffer[N]){
+    int count = 0;
+    for(int i = 0; i < N; i++){
+        int researched = buffer[i];
+        for(int j = N; j > 0; j--){
+            if (researched==buffer[j] && i!=j && buffer[j]!=0.1){
+                   count++;
+                buffer[i] = 0.1;
+                buffer[j] = 0.1;
+            }
+        }
+    }
+    return N - count;
+}

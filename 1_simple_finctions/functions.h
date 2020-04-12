@@ -17,4 +17,5 @@ void getDigit(char *string, int size, int *digits);
 void artFunction(int x1, int y1, int x2, int y2, int size, int *massive);
 void LineProcessing(int num, char *word);
 char *WordsInLine(char *protoBuffer, char *buffer);
+int ArrayAnalysis( int N, double buffer[N]);
 #endif //EDWARD_FUNCTIONS_H
