@@ -18,4 +18,5 @@ void artFunction(int x1, int y1, int x2, int y2, int size, int *massive);
 void LineProcessing(int num, char *word);
 char *WordsInLine(char *protoBuffer, char *buffer);
 int ArrayAnalysis( int N, double buffer[N]);
+char* LineReversal(int N, char buffer[N], char reverseBuffer[N]);
 #endif //EDWARD_FUNCTIONS_H

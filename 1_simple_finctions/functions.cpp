@@ -120,3 +120,48 @@ int ArrayAnalysis( int N, double buffer[N]){
     }
     return N - count;
 }
+
+char* LineReversal(int N, char buffer[N], char reverseBuffer[N]) {
+    int workPoint;
+    reverseBuffer[0] = 0;
+    int i = 0;
+    int count = 0;
+    char *words[100];
+    char *pch;
+    pch = strtok(buffer, " ");
+    while (pch != NULL) {
+        words[i++] = pch;
+        pch = strtok(NULL, " ");
+        if (pch != NULL) {
+            count++;
+        }
+    }
+    int j = 0;
+    int theEnd = 0;
+    int counterOfSym = 0;
+    int startOfWord = 0;
+    for (int l = 0; l < N; l++) {
+        startOfWord++;
+        if (theEnd != count + 1) {
+            if (buffer[l] == '\0') {
+                startOfWord--;
+                workPoint = counterOfSym;
+                if (counterOfSym != l)
+                    workPoint = j + 1;
+                do {
+                    workPoint--;
+                    reverseBuffer[j] = buffer[workPoint];
+                    j++;
+                } while (workPoint != counterOfSym - startOfWord);
+                startOfWord = 0;
+                reverseBuffer[j] = ' ';
+                theEnd++;
+                j++;
+            }
+            counterOfSym++;
+        } else {
+            reverseBuffer[j - 1] = '\0';
+        }
+    }
+    return reverseBuffer;
+}

@@ -226,3 +226,14 @@ TEST (SimpleFunctionsTests, TestArrayAnalysis) {
     int result = ArrayAnalysis(11, buffer);
     ASSERT_EQ(expectedResult, result);
 }
+
+TEST (SimpleFunctionsTests, TestLineReversal) {
+    char buffer[100] = "Club I go,fun I look.";
+    char reversBuffer[100];
+    char expectedBuffer[100] = "bulC I og,nuf I kool.";
+    LineReversal(100, buffer, reversBuffer);
+    int symbolCount = strlen(buffer);
+    for (int i = 0; i < symbolCount; i++) {
+        ASSERT_EQ(expectedBuffer[i], reversBuffer[i]);
+    }
+}
