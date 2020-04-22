@@ -20,7 +20,7 @@ char *WordsInLine(char *protoBuffer, char *buffer);
 int ArrayAnalysis( int N, double buffer[N]);
 char* LineReversal(int N, char buffer[N], char reverseBuffer[N]);
 void LineStitching(char *buffer1, char *buffer2, char *buffer3);
-void SearchForPhrases(char *input, char *output);
+void Space(char *input, char *output);
 int getDigit(int ticket, int position);
 int LuckyTicket(int ticket);
 int intFromChar(char digit);

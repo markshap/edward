@@ -272,7 +272,7 @@ TEST (SimpleFunctionsTests, TestSearchForPhrases) {
         if (strchr("\t\n\r", output[i]))
             continue;
         strcpy(buffer1, output + i);
-        SearchForPhrases(buffer1, buffer2);
+        Space(buffer1, buffer2);
         int result = memcmp(buffer1, phrase, sizeOfPhrase - 1);
         if(!result){
             for(int j = strlen(output); j >= i ; j--){

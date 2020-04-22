@@ -180,7 +180,7 @@ void LineStitching(char *buffer1, char *buffer2, char *buffer3){
     strcpy(buffer3 + lengthOfFirst, buffer2 + N);
 }
 
-void SearchForPhrases(char *input, char *output) {
+void Space(char *input, char *output) {
     output[0] = 0;
     char *token;
     const char delim[5] = "\t\n\r";
