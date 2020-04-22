@@ -19,4 +19,15 @@ void LineProcessing(int num, char *word);
 char *WordsInLine(char *protoBuffer, char *buffer);
 int ArrayAnalysis( int N, double buffer[N]);
 char* LineReversal(int N, char buffer[N], char reverseBuffer[N]);
+void LineStitching(char *buffer1, char *buffer2, char *buffer3);
+void SearchForPhrases(char *input, char *output);
+int getDigit(int ticket, int position);
+int LuckyTicket(int ticket);
+int intFromChar(char digit);
+char *SimpleExpressionCalculation(int N, char input[N], char output[N]);
+char *Exponentiation(int j, int exp, char buffer[j]);
+void charFromInt(int n, char s[]);
+int powOverflow(int num, int power);
+int Pow(int num, int power);
+int overFlow(int a, int b);
 #endif //EDWARD_FUNCTIONS_H

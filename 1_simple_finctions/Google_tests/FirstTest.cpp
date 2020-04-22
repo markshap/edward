@@ -2,6 +2,7 @@
 // Created by Mark Shapiro on 2020-03-04.
 //
 
+#include <cmath>
 #include "gtest/gtest.h"
 #include "../functions.h"
 
@@ -228,12 +229,94 @@ TEST (SimpleFunctionsTests, TestArrayAnalysis) {
 }
 
 TEST (SimpleFunctionsTests, TestLineReversal) {
-    char buffer[100] = "Club I go,fun I look.";
+    setlocale(LC_CTYPE, "rus");
+    char buffer[100] = "a b c d e fpf f.pf gh i jkl.";
     char reversBuffer[100];
-    char expectedBuffer[100] = "bulC I og,nuf I kool.";
+    char expectedBuffer[100] = "a b c d e fpf f.fp hg i lkj.";
     LineReversal(100, buffer, reversBuffer);
     int symbolCount = strlen(buffer);
     for (int i = 0; i < symbolCount; i++) {
         ASSERT_EQ(expectedBuffer[i], reversBuffer[i]);
     }
+}
+
+TEST (SimpleFunctionsTests, TestLineStitching) {
+    char buffer1[100] = "raj";
+    char buffer2[100] = "rajatka";
+    char buffer3[100];
+    buffer3[0]=0;
+    char expectedBuffer[100] = "rajatka";
+    LineStitching(buffer1, buffer2, buffer3);
+    int symbolCount = strlen(buffer3);
+    for (int i = 0; i < symbolCount; i++) {
+        ASSERT_EQ(expectedBuffer[i], buffer3[i]);
+    }
+}
+
+TEST (SimpleFunctionsTests, TestSearchForPhrases) {
+    char phrase[128]="";
+    char output[5000] ="";
+    char buffer1[3000];
+    char buffer2[3000];
+    FILE *file1, *file2;
+    file1 = fopen("/Users/edwardshapiro/CLionProjects/edward/1_simple_finctions/Google_tests/input.txt", "r");
+    file2 = fopen("/Users/edwardshapiro/CLionProjects/edward/1_simple_finctions/Google_tests/output.txt", "w+");
+    fgets(phrase, 128, file1);
+    while(fgets(buffer1, 3000, file1)!=NULL){
+        strcat(output, buffer1);
+    }
+    int sizeOfPhrase = strlen(phrase);
+    phrase[sizeOfPhrase-1] = 0;
+    int length = strlen(output);
+    for (int i = 0; i < length - sizeOfPhrase +2; i++){
+        if (strchr("\t\n\r", output[i]))
+            continue;
+        strcpy(buffer1, output + i);
+        SearchForPhrases(buffer1, buffer2);
+        int result = memcmp(buffer1, phrase, sizeOfPhrase - 1);
+        if(!result){
+            for(int j = strlen(output); j >= i ; j--){
+                output[j + i] = output[j];
+            }
+            output[i-1] = '@';
+            length = strlen(output);
+            i++;
+        }
+    }
+    fputs(output, file2);
+    fclose(file1);
+    fclose(file2);
+}
+
+TEST (SimpleFunctionsTests, TestLuckyTicket) {
+    int ticket = -123123;
+    int expectedResult = 1;
+    int result = LuckyTicket(ticket);
+    ASSERT_EQ(expectedResult, result);
+}
+
+TEST (SimpleFunctionsTests, TestSimpleExpressionCalculation) {
+    char ProtoBuffer[10] = "1.23*1.23";
+    char buffer[10];
+    char expectedBuffer[10] = "1.5129";
+    SimpleExpressionCalculation(10, ProtoBuffer, buffer);
+    for (int i = 0; i < strlen(buffer); i++) {
+        ASSERT_EQ(expectedBuffer[i], buffer[i]);
+    }
+}
+
+TEST (SimpleFunctionsTests, TestSimpleExponentiation) {
+    int N = 10000;
+    char expectedBuffer[N];
+    char anotherBuffer[N];
+    anotherBuffer[0] = 0;
+    char buffer[N];
+    Exponentiation(N, 7, buffer);
+    for (int i = 0; i < strlen(buffer) ; i++) {
+        printf("%c", buffer[i]);
+    }
+
+   int z = pow(-21, 7);
+    int result = atoi(buffer);
+    ASSERT_EQ(z, result);
 }

@@ -5,6 +5,8 @@
 #include <cstdio>
 #include <cstring>
 #include <cctype>
+#include <cmath>
+#include <climits>
 #include "functions.h"
 
 int sum(int a, int b) {
@@ -121,6 +123,8 @@ int ArrayAnalysis( int N, double buffer[N]){
     return N - count;
 }
 
+
+
 char* LineReversal(int N, char buffer[N], char reverseBuffer[N]) {
     int workPoint;
     reverseBuffer[0] = 0;
@@ -164,4 +168,166 @@ char* LineReversal(int N, char buffer[N], char reverseBuffer[N]) {
         }
     }
     return reverseBuffer;
+}
+
+void LineStitching(char *buffer1, char *buffer2, char *buffer3){
+    int lengthOfFirst = strlen(buffer1);
+    int lengthOfSecond = strlen(buffer2);
+    int N = (lengthOfFirst < lengthOfSecond)?lengthOfFirst:lengthOfSecond;
+    while(memcmp(buffer1 + lengthOfFirst - N, buffer2, N)!=0 && N > 0)
+        N--;
+    strcpy(buffer3, buffer1);
+    strcpy(buffer3 + lengthOfFirst, buffer2 + N);
+}
+
+void SearchForPhrases(char *input, char *output) {
+    output[0] = 0;
+    char *token;
+    const char delim[5] = "\t\n\r";
+    token = strtok(NULL, delim);
+    while (token != NULL) {
+        strcat(output, token);
+        token = strtok(NULL, delim);
+        if (token != NULL) {
+            strcat(output, " ");
+        }
+    }
+}
+int getDigit(int ticket, int position){
+    int result = ticket % (int) Pow(10, (int) position);
+    return result / Pow(10, (int) position - 1);
+}
+
+int LuckyTicket(int ticket){
+    if (ticket<0)
+        ticket=-ticket;
+    int size = (int)log10(ticket) + 1;
+    if(size%2!=0)
+        return 0;
+    int sumOfRSide = 0;
+    int sumOfLSide = 0;
+    for(int i = 0; i <= size/2; i++){
+        sumOfRSide += getDigit(ticket, i);
+    }
+    for(int j = size/2; j < size; j++){
+        sumOfLSide += getDigit(ticket, j);
+    }
+    if(sumOfLSide!=sumOfRSide){
+            return 0;
+    }
+    else
+        return 1;
+}
+int intFromChar(char digit){
+    return (int)digit - '0';
+}
+
+char *SimpleExpressionCalculation(int N, char input[N], char output[N]){
+    int numR = intFromChar(input[5]) * 100 + intFromChar(input[7]) * 10 + intFromChar(input[8]);
+    int numL = intFromChar(input[0]) * 100 + intFromChar(input[2]) * 10 + intFromChar(input[3]);
+    int result = numL * numR;
+    sprintf(output, "%06d", result);
+    int length = strlen(output);
+    for (int i = length; i >= length - 4; i--) {
+        output[i+1] = output[i];
+    }
+    output[length - 4] = '.';
+    if (output[0]=='0') {
+        for (int i = 0; i < 9; i++) {
+            output[i] = output[i + 1];
+        }
+    }
+
+    for (int i = strlen(output) - 1; i > 0;i--) {
+        if (output[i] == '0' || output[i] == '.') {
+            output[i] = 0;}
+        else {
+            break;
+        }
+    }
+    return output;
+}
+
+int overFlow(int a, int b) {
+    if (b == 0) {
+        return 0;
+    }
+    if (a > INT_MAX / b) {
+        return 1;
+    }
+    if ((a < INT_MIN / b)) {
+        return 1;
+    }
+    return 0;
+}
+
+int Pow(int num, int power) {
+    if (power == 0) {
+        return 1;
+    }
+    int res = num;
+    for (int i = 0; i < power - 1; i++) {
+        res *= num;
+    }
+    return res;
+}
+
+int powOverflow(int num, int power) {
+    if (power == 0) {
+        return 1;
+    }
+    int res = num;
+
+    for (int i = 0; i < power - 1; i++) {
+        if (overFlow(res, num)) {
+            return 1;
+        }
+        res *= num;
+    }
+    return 0;
+}
+
+void reverse(char s[])
+{
+    int i, j;
+    char c;
+
+    for (i = 0, j = strlen(s)-1; i<j; i++, j--) {
+        c = s[i];
+        s[i] = s[j];
+        s[j] = c;
+    }
+}
+
+void charFromInt(int n, char s[])
+{
+    int i, sign;
+
+    if ((sign = n) < 0)
+        n = -n;
+    i = 0;
+    do {
+        s[i++] = n % 10 + '0';
+    } while ((n /= 10) > 0);
+    if (sign < 0)
+        s[i++] = '-';
+    s[i] = '\0';
+    reverse(s);
+}
+
+char *Exponentiation(int j, int exp, char buffer[j]){
+    for (int i = 0; i < INT_MAX; i++) {
+        int positive = i;
+        int negative = -i;
+        if (powOverflow(i, exp)) {
+            return 0;
+        }
+        int resPositive = Pow(positive, exp);
+        int resNegative = Pow(negative, exp);
+        charFromInt(resPositive, buffer);
+        if (resPositive != resNegative) {
+            charFromInt(resNegative, buffer);
+        }
+    }
+    return buffer;
 }
