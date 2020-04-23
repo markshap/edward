@@ -30,4 +30,5 @@ void charFromInt(int n, char s[]);
 int powOverflow(int num, int power);
 int Pow(int num, int power);
 int overFlow(int a, int b);
+void lineProcessing(char* buffer1, char* buffer2);
 #endif //EDWARD_FUNCTIONS_H

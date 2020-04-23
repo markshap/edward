@@ -331,3 +331,16 @@ char *Exponentiation(int j, int exp, char buffer[j]){
     }
     return buffer;
 }
+
+void lineProcessing(char* buffer1, char* buffer2) {
+    buffer2[0] = 0;
+    char *token;
+    const char delim[5] = "\t\n\r";
+    token = strtok(buffer1, delim);
+    while(token != NULL){
+        strcat(buffer2, token);
+        token = strtok(NULL, delim);
+        if (token!=NULL)
+            strcat(buffer2, " ");
+    }
+}

@@ -254,45 +254,39 @@ TEST (SimpleFunctionsTests, TestLineStitching) {
 }
 
 TEST (SimpleFunctionsTests, TestSearchForPhrases) {
-    char phrase[128]="";
-    char output[5000] ="";
-    char buffer1[3000];
-    char buffer2[3000];
-    FILE *file1, *file2;
+    FILE* file1, *file2;
     file1 = fopen("/Users/edwardshapiro/CLionProjects/edward/1_simple_finctions/Google_tests/input.txt", "r");
     file2 = fopen("/Users/edwardshapiro/CLionProjects/edward/1_simple_finctions/Google_tests/output.txt", "w+");
-    fgets(phrase, 128, file1);
-    while(fgets(buffer1, 3000, file1)!=NULL){
-        strcat(output, buffer1);
+    char buffer1[3000];
+    char buffer2[3000] = "";
+    char buffer3[3000] = "";
+    char phrase[128];
+    fgets(phrase, 128, file1);//запишем фразу
+    int lengthOfPhrase = strlen(phrase);//запишем длину фразы
+    phrase[lengthOfPhrase-1] = 0;//заменим символ перехода строки на ноль
+    //запишем оставшийся файл в массиив
+    while(fgets(buffer1, 3000, file1)!=NULL){//условие: выполнять ,пока fgets не вернет в пустой указатель
+        strcat(buffer3, buffer1);
     }
-    int sizeOfPhrase = strlen(phrase);
-    phrase[sizeOfPhrase-1] = 0;
-    int length = strlen(output);
-    for (int i = 0; i < length - sizeOfPhrase +2; i++){
-        if (strchr("\t\n\r", output[i]))
-            continue;
-        strcpy(buffer1, output + i);
-        Space(buffer1, buffer2);
-        int result = memcmp(buffer1, phrase, sizeOfPhrase - 1);
-        if(!result){
-            for(int j = strlen(output); j >= i ; j--){
-                output[j + i] = output[j];
+    int lengthOfBuffer3 = strlen(buffer3);//записываем длину buffer2
+    for (int i = 0; i < lengthOfBuffer3 - lengthOfPhrase + 2; i++) {//цикл от 0 до  lengthOfBuffer2 - lengthOfPhrase
+        if (strchr("\t\n\r",buffer3[i]))//Возвращаемое значение - указатель на искомый символ, если он найден в строке str, иначе NULL. т.е Если встретятся "\t\n\r" , итерация будет пропущена
+            continue; //В операторах for , while , do while , оператор continue выполняет пропуск оставшейся части кода тела цикла и переходит к следующей итерации цикла.
+        strcpy(buffer1, buffer3 + i);//копируем содержимое buffer3 + i в buffer1
+        lineProcessing(buffer1, buffer2);//удаляем все пробелы из buffer1 и записываем в buffer2
+        int result = memcmp(buffer2, phrase, lengthOfPhrase - 1);//Функция memcmp() сравнивает первые lengthOfPhrase - 1 символов массивов, на которые указывают buffer1 и phrase.
+        if(!result) {//если не равен 0, то это значит, что нашлось совпадение с phrase
+            for(int j = strlen(buffer3); j >= i ; j--) {//уменьшаем jдо тех пор, пока он не станет равным i
+                buffer3[j + 1] = buffer3[j];//сдвиг
             }
-            output[i-1] = '@';
-            length = strlen(output);
+            buffer3[i]='@';//записываем  @
+            lengthOfBuffer3 = strlen(buffer3);
             i++;
         }
     }
-    fputs(output, file2);
+    fputs(buffer3, file2);
     fclose(file1);
     fclose(file2);
-}
-
-TEST (SimpleFunctionsTests, TestLuckyTicket) {
-    int ticket = -123123;
-    int expectedResult = 1;
-    int result = LuckyTicket(ticket);
-    ASSERT_EQ(expectedResult, result);
 }
 
 TEST (SimpleFunctionsTests, TestSimpleExpressionCalculation) {
