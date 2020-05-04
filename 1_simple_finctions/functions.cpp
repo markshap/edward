@@ -344,3 +344,13 @@ void lineProcessing(char* buffer1, char* buffer2) {
             strcat(buffer2, " ");
     }
 }
+
+int isItPalindrome(char *buffer, int size) {
+    if (size < 2) {
+        return 1;
+    }
+    if (*buffer == *(buffer + size - 1)) {
+        return isItPalindrome(buffer + 1, size - 2);
+    } else
+        return 0;
+}

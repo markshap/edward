@@ -31,4 +31,5 @@ int powOverflow(int num, int power);
 int Pow(int num, int power);
 int overFlow(int a, int b);
 void lineProcessing(char* buffer1, char* buffer2);
+int isItPalindrome(char *buffer, int size);
 #endif //EDWARD_FUNCTIONS_H

@@ -314,3 +314,48 @@ TEST (SimpleFunctionsTests, TestSimpleExponentiation) {
     int result = atoi(buffer);
     ASSERT_EQ(z, result);
 }
+
+TEST (SimpleFunctionsTests, TestPalindrome) {
+    char expectedBuffer[200] = "qwertrewq";
+    char mainPalindrome[200];
+    mainPalindrome[0]=0;
+    int storage;
+    char suspect[200];
+    for (int n = 0; n < 20; n++) {
+        suspect[n] = 0;
+    }
+    int count = 0;
+    char buffer[200] = "11122233333qwertrewq";
+    for (int i = 0; i < strlen(buffer); i++) {
+        for (int j = strlen(buffer) - 1; j > 0; j--) {
+            if (buffer[i] == buffer[j] && i < j) {
+                for (int l = i; l < j + 1; l++) {
+                    suspect[count] = buffer[l];
+                    count++;
+                }
+                count = 0;
+                storage = isItPalindrome(suspect, strlen(suspect));
+                if (storage == 1) {
+                    if (*(mainPalindrome) == '\0') {
+                        strcpy(mainPalindrome, suspect);
+                    } else if (strlen(suspect)>strlen(mainPalindrome)){
+                        strcpy(mainPalindrome, suspect);
+                    }
+                    for (int k = 0; k < 200; k++) {
+                        suspect[k] = 0;
+                    }
+                }
+                for (int k = 0; k < 200; k++) {
+                    suspect[k] = 0;
+                }
+            }
+        }
+    }
+
+    int length = strlen(mainPalindrome);
+    int expectedLength = 9;
+    for (int i = 0; i < strlen(mainPalindrome); i++) {
+        ASSERT_EQ(expectedBuffer[i], mainPalindrome[i]);
+    }
+    ASSERT_EQ(length, expectedLength);
+}
