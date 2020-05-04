@@ -258,33 +258,33 @@ TEST (SimpleFunctionsTests, TestSearchForPhrases) {
     file1 = fopen("/Users/edwardshapiro/CLionProjects/edward/1_simple_finctions/Google_tests/input.txt", "r");
     file2 = fopen("/Users/edwardshapiro/CLionProjects/edward/1_simple_finctions/Google_tests/output.txt", "w+");
     char buffer1[3000];
-    char buffer2[3000] = "";
-    char buffer3[3000] = "";
+    char inputText[3000] = "";
+    char outputText[3000] = "";
     char phrase[128];
-    fgets(phrase, 128, file1);//запишем фразу
-    int lengthOfPhrase = strlen(phrase);//запишем длину фразы
+    fgets(phrase, 128, file1);//читаем из файла фразу
+    int lengthOfPhrase = strlen(phrase);//вычисляем длину фразы
     phrase[lengthOfPhrase-1] = 0;//заменим символ перехода строки на ноль
     //запишем оставшийся файл в массиив
     while(fgets(buffer1, 3000, file1)!=NULL){//условие: выполнять ,пока fgets не вернет в пустой указатель
-        strcat(buffer3, buffer1);
+        strcat(outputText, buffer1);
     }
-    int lengthOfBuffer3 = strlen(buffer3);//записываем длину buffer2
+    int lengthOfBuffer3 = strlen(outputText);//записываем длину buffer2
     for (int i = 0; i < lengthOfBuffer3 - lengthOfPhrase + 2; i++) {//цикл от 0 до  lengthOfBuffer2 - lengthOfPhrase
-        if (strchr("\t\n\r",buffer3[i]))//Возвращаемое значение - указатель на искомый символ, если он найден в строке str, иначе NULL. т.е Если встретятся "\t\n\r" , итерация будет пропущена
+        if (strchr("\t\n\r", outputText[i]))//Возвращаемое значение - указатель на искомый символ, если он найден в строке str, иначе NULL. т.е Если встретятся "\t\n\r" , итерация будет пропущена
             continue; //В операторах for , while , do while , оператор continue выполняет пропуск оставшейся части кода тела цикла и переходит к следующей итерации цикла.
-        strcpy(buffer1, buffer3 + i);//копируем содержимое buffer3 + i в buffer1
-        lineProcessing(buffer1, buffer2);//удаляем все пробелы из buffer1 и записываем в buffer2
-        int result = memcmp(buffer2, phrase, lengthOfPhrase - 1);//Функция memcmp() сравнивает первые lengthOfPhrase - 1 символов массивов, на которые указывают buffer1 и phrase.
-        if(!result) {//если не равен 0, то это значит, что нашлось совпадение с phrase
-            for(int j = strlen(buffer3); j >= i ; j--) {//уменьшаем jдо тех пор, пока он не станет равным i
-                buffer3[j + 1] = buffer3[j];//сдвиг
+        strcpy(buffer1, outputText + i);//копируем содержимое buffer3 + i в buffer1
+        lineProcessing(buffer1, inputText);//Функция lineProcessing заменяет символы управляющие символы на пробелы
+        int result = memcmp(inputText, phrase, lengthOfPhrase - 1);//Функция memcmp() сравнивает первые lengthOfPhrase - 1 символов массивов, на которые указывают buffer1 и phrase.
+        if(!result) {//если равен 0, то это значит, что нашлось совпадение с phrase
+            for(int j = strlen(outputText); j >= i ; j--) {//уменьшаем jдо тех пор, пока он не станет равным i
+                outputText[j + 1] = outputText[j];//сдвиг
             }
-            buffer3[i]='@';//записываем  @
-            lengthOfBuffer3 = strlen(buffer3);
+            outputText[i]='@';//записываем  @
+            lengthOfBuffer3 = strlen(outputText);
             i++;
         }
     }
-    fputs(buffer3, file2);
+    fputs(outputText, file2);
     fclose(file1);
     fclose(file2);
 }
