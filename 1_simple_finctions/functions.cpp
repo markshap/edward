@@ -171,28 +171,15 @@ char* LineReversal(int N, char buffer[N], char reverseBuffer[N]) {
 }
 
 void LineStitching(char *buffer1, char *buffer2, char *buffer3){
-    int lengthOfFirst = strlen(buffer1);
-    int lengthOfSecond = strlen(buffer2);
-    int N = (lengthOfFirst < lengthOfSecond)?lengthOfFirst:lengthOfSecond;
-    while(memcmp(buffer1 + lengthOfFirst - N, buffer2, N)!=0 && N > 0)
+    int lengthOfFirst = strlen(buffer1);//вычисляем длину первой фразы
+    int lengthOfSecond = strlen(buffer2);//вычисляем длину второй фразы
+    int N = (lengthOfFirst < lengthOfSecond)?lengthOfFirst:lengthOfSecond;//вычисляем наименьшую длину
+    while(memcmp(buffer1 + lengthOfFirst - N, buffer2, N)!=0 && N > 0)//если "buffer1 + lengthOfFirst - N" не совпалает с buffer2, то N уменьшается до тех пор, пока memcmp не вернет 0
         N--;
-    strcpy(buffer3, buffer1);
-    strcpy(buffer3 + lengthOfFirst, buffer2 + N);
+    strcpy(buffer3, buffer1);//копирует в buffer3 buffer1
+    strcpy(buffer3 + lengthOfFirst, buffer2 + N); //копирует в buffer3 buffer2 начиная с той части, где идентичность символов заканчимвается
 }
 
-void Space(char *input, char *output) {
-    output[0] = 0;
-    char *token;
-    const char delim[5] = "\t\n\r";
-    token = strtok(NULL, delim);
-    while (token != NULL) {
-        strcat(output, token);
-        token = strtok(NULL, delim);
-        if (token != NULL) {
-            strcat(output, " ");
-        }
-    }
-}
 int getDigit(int ticket, int position){
     int result = ticket % (int) Pow(10, (int) position);
     return result / Pow(10, (int) position - 1);
@@ -221,7 +208,7 @@ int LuckyTicket(int ticket){
 int intFromChar(char digit){
     return (int)digit - '0';
 }
-
+// функция переволит два число из char в int, перемножает два значения, ставит '.' в необходимом месте
 char *SimpleExpressionCalculation(int N, char input[N], char output[N]){
     int numR = intFromChar(input[5]) * 100 + intFromChar(input[7]) * 10 + intFromChar(input[8]);
     int numL = intFromChar(input[0]) * 100 + intFromChar(input[2]) * 10 + intFromChar(input[3]);

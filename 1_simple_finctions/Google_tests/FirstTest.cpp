@@ -241,11 +241,11 @@ TEST (SimpleFunctionsTests, TestLineReversal) {
 }
 
 TEST (SimpleFunctionsTests, TestLineStitching) {
-    char buffer1[100] = "raj";
-    char buffer2[100] = "rajatka";
+    char buffer1[100] = "shlacoblok";
+    char buffer2[100] = "okun";
     char buffer3[100];
     buffer3[0]=0;
-    char expectedBuffer[100] = "rajatka";
+    char expectedBuffer[100] = "shlacoblokun";
     LineStitching(buffer1, buffer2, buffer3);
     int symbolCount = strlen(buffer3);
     for (int i = 0; i < symbolCount; i++) {
