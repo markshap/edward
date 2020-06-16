@@ -7,6 +7,8 @@
 #include <cctype>
 #include <cmath>
 #include <climits>
+#include <zconf.h>
+#include <cstdlib>
 #include "functions.h"
 
 int sum(int a, int b) {
@@ -340,4 +342,110 @@ int isItPalindrome(char *buffer, int size) {
         return isItPalindrome(buffer + 1, size - 2);
     } else
         return 0;
+}
+
+void delSpace(char *string) {
+    char storage[100] = "";
+    int j = 0;
+    for (int i = 0; i < strlen(string); i++) {
+        if (string[i] != ' ') {
+            storage[j] = string[i];
+            j++;
+        }
+    }
+    string[0] = 0;
+    strcat(string, storage);
+}
+
+char plus = '+';
+char minus = '-';
+char multiplication = '*';
+char division = '/';
+char openBracket = '(';
+char closeBracket = ')';
+
+void switchFunction(char string[]) {
+    char temporary[100] = "";
+    for (int i = 1; i < strlen(string) - 1; i++) {
+        temporary[i - 1] = string[i];
+    }
+    string[0] = 0;
+    strcat(string, temporary);
+}
+
+int searchForBrackets(char *string) {
+    for (int i = 0; i < strlen(string); i++) {
+        if (string[i] == openBracket) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+int operatorSearch(char *string) {
+    int countOfBrackets = 0;
+    for (int j = 0; j < strlen(string); j++) {
+        if (string[j] == openBracket) {
+            countOfBrackets++;
+        } else if (string[j] == closeBracket) {
+            countOfBrackets--;
+        }
+        if (countOfBrackets == 0) {
+            if (string[j] == plus || string[j] == minus) {
+                return j;
+            }
+        }
+    }
+    for (int j = 0; j < strlen(string); j++) {
+        if (string[j] == openBracket) {
+            countOfBrackets++;
+        } else if (string[j] == closeBracket) {
+            countOfBrackets--;
+        }
+        if (countOfBrackets == 0) {
+            if (string[j] == multiplication || string[j] == division) {
+                return j;
+            }
+        }
+    }
+    return -1;
+}
+
+double expression(char *string) {
+    delSpace(string);
+    int bracket = 0;
+    char leftStr[100] = "";
+    char rightStr[100] = "";
+    int pos = operatorSearch(string);
+    bracket = searchForBrackets(string);
+    if (pos == -1 && bracket == -1) {
+        return strtod(string, NULL);
+    } else if (pos == -1){
+        switchFunction(string);
+        pos = operatorSearch(string);
+    }
+    for (int i = 0; i < pos; i++) {
+        leftStr[i] = string[i];
+        leftStr[i + 1] = 0;
+    }
+    for (int i = pos + 1; i < strlen(string); i++) {
+        rightStr[i - pos - 1] = string[i];
+        rightStr[i - pos] = 0;
+    }
+
+    double left = (double) expression(leftStr);
+    double right = (double) expression(rightStr);
+    switch (string[pos]) {
+        case '+':
+            return left + right;
+        case '-':
+            return left - right;
+        case '/':
+            return left / right;
+        case '*':
+            return left * right;
+        default  :
+            return -1;
+    }
 }

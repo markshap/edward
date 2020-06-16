@@ -359,3 +359,20 @@ TEST (SimpleFunctionsTests, TestPalindrome) {
     }
     ASSERT_EQ(length, expectedLength);
 }
+
+TEST (SimpleFunctionsTests, TestExptyui) {
+    char string[1000] = "(1.23+1.   34*2.222)";//4,20748
+    char string1[1000] = "(1.11+2.22)*3.33+(4.44+34.5) ";//50.0289
+    char string2[1000] = "1.1+   ((1.1+1   .1)+2.2)*23.1";//102.74
+    char string3[1000] = "1.1+1.1+(1.1+2.2*23.1)";//54.12
+    char string4[1000] = "123.123";
+    double expectedString4 = 123.123;
+    double expectedString1 = 50.0289;
+    double expectedString = 4.20748;
+    double exp = expression(string);
+    double exp1 = expression(string1);
+    double exp4 = expression(string4);
+    ASSERT_EQ(exp, expectedString);
+    ASSERT_EQ(exp1, expectedString1);
+    ASSERT_EQ(exp4, expectedString4);
+}

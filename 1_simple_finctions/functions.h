@@ -32,4 +32,9 @@ int Pow(int num, int power);
 int overFlow(int a, int b);
 void lineProcessing(char* buffer1, char* buffer2);
 int isItPalindrome(char *buffer, int size);
+double expression(char *string);
+int operatorSearch(char *string);
+int searchForBrackets(char *string);
+void switchFunction(char string[]);
+void delSpace(char *string);
 #endif //EDWARD_FUNCTIONS_H
