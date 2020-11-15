@@ -376,3 +376,20 @@ TEST (SimpleFunctionsTests, TestExptyui) {
     ASSERT_EQ(exp1, expectedString1);
     ASSERT_EQ(exp4, expectedString4);
 }
+
+TEST (SimpleFunctionsTests, TestOfPeriodLength){
+    long long divider1 = 737;
+    long long divider2 = 33;
+    long long divider3 = 131;
+    long long divider = abbreviationFunction(divider);
+    long long legth1 = columnDivision(divider1);
+    long long legth2 = columnDivision(divider2);
+    long long legth3 = columnDivision(divider3);
+    long long expectedResult1 = 66;
+    long long expectedResult2 = 2;
+    long long expectedResult3 = 130;
+    ASSERT_EQ(expectedResult1, legth1);
+    ASSERT_EQ(expectedResult2, legth2);
+    ASSERT_EQ(expectedResult3, legth3);
+
+}

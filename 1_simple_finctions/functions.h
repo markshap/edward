@@ -37,4 +37,20 @@ int operatorSearch(char *string);
 int searchForBrackets(char *string);
 void switchFunction(char string[]);
 void delSpace(char *string);
+void shift(char massive[]);
+void reverse1(char massive[]);
+void deleteSpace(char massive[]);
+void additionalCode(char massive[]);
+void convertFunction(int number, char massive[]);
+void turnDigitInString(char buffer[], long long difference);
+long long fromStringToInt(char massive[], long long dividendInt);
+void theIncreaseOfTheDividend(char dividend[], long long divider, char resultingArray[]);
+void theIncreaseOfTheDividendFirst(char dividend[], long long divider, char resultingArray[]);
+long long theIncreaseOfTheDivider(long long divider, long long dividend, char resultingArray[]);
+long long columnDivision(long long divider);
+long long testOfDivisibility(long long divider);
+long long divisionBy2Function(long long divider);
+long long divisionBy5Function(long long divider);
+long long abbreviationFunction(long long divider);
+
 #endif //EDWARD_FUNCTIONS_H
