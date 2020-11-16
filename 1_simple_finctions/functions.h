@@ -53,4 +53,6 @@ long long divisionBy2Function(long long divider);
 long long divisionBy5Function(long long divider);
 long long abbreviationFunction(long long divider);
 
+int recurringDecimalSize(int denominator);
+
 #endif //EDWARD_FUNCTIONS_H
