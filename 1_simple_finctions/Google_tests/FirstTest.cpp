@@ -378,18 +378,24 @@ TEST (SimpleFunctionsTests, TestExptyui) {
 }
 
 TEST (SimpleFunctionsTests, TestOfPeriodLength){
-    long long divider1 = 737;
+    long long divider1 = 937131;
     long long divider2 = 33;
     long long divider3 = 131;
     long long divider = abbreviationFunction(divider);
     long long legth1 = columnDivision(divider1);
     long long legth2 = columnDivision(divider2);
     long long legth3 = columnDivision(divider3);
-    long long expectedResult1 = 66;
+    long long expectedResult1 = 72084;
     long long expectedResult2 = 2;
     long long expectedResult3 = 130;
     ASSERT_EQ(expectedResult1, legth1);
     ASSERT_EQ(expectedResult2, legth2);
     ASSERT_EQ(expectedResult3, legth3);
-
 }
+
+TEST (SimpleFunctionsTests, TestRecurringDecimalSize) {
+    ASSERT_EQ(130, recurringDecimalSize(131));
+    ASSERT_EQ(72084, recurringDecimalSize(937131));
+    ASSERT_EQ(2, recurringDecimalSize(33));
+}
+

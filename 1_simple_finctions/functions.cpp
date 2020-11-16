@@ -572,7 +572,7 @@ void theIncreaseOfTheDividend(char dividend[], long long divider, char resulting
     for (int i = 1; fromStringToInt(dividend, checkForDividend) < divider; i++) {
         dividend[(sizeOfDividend - 1) + i] = '0';
         if (i >= 2) {
-            resultingArray[(sizeOfResultingArray - 1) + i-1] = '0';//увеличивает числитель, добавлет необходимое
+            resultingArray[(sizeOfResultingArray - 1) + i - 1] = '0';//увеличивает числитель, добавлет необходимое
         }                                                           //кол-во нулей в результат
     }
 }
@@ -624,14 +624,51 @@ long long columnDivision(long long divider) { // делит столбиком
         long long increasedDivider = theIncreaseOfTheDivider(divider, dividendInt, resultingArray);
         long long difference = dividendInt - increasedDivider;
         turnDigitInString(dividend, difference);
-        for(int i = 0; i < strlen(resultingArray)/2; i++){
+        int len = strlen(resultingArray);
+        for (int i = 0; i < len / 2; i++) {
             buffer1[i] = resultingArray[i];
         }
-        for(int i = (int)strlen(resultingArray)/2, j = 0; i > (int)strlen(resultingArray), j < strlen(resultingArray)/2; i++, j++){
-            buffer2[j] = resultingArray[i];
+        for (int i = 0; i < len / 2; i++) {
+            buffer2[i] = resultingArray[i + len / 2];
         }
     } while (memcmp(buffer1, buffer2, strlen(buffer1)) != 0);
-    return (long)strlen(buffer1);
+    return (long) strlen(buffer1);
+}
+
+char result[1000000];
+
+int recurringDecimalSize(int denominator) {
+    int remainder = 1;
+    strcpy(result, "");
+    int len;
+    bool leadingZeros = true; // we'll start checking for the recurring decimal once the first non-zero digit appears
+    bool integerPart = true;      // skip the first zero because it belongs to the integer part
+    do {
+        // next digit in the result is the integer part and must be between 0 and 9
+        int nextDigit = remainder / denominator;
+        // what's left is the division reminder
+        remainder = remainder % denominator;
+
+        // note the first non-zero digit to start looking for the recurring decimal
+        if (nextDigit != 0) {
+            leadingZeros = false;
+        }
+
+        // add digit to the result unless it's the first digit which belongs to the integer part
+        if (!integerPart) {
+            len = strlen(result);
+            result[len] = nextDigit + '0';
+            len++;
+            result[len] = 0;
+        }
+        // since we divide 1 by N>1, the integer part always consists of one digit (zero)
+        integerPart = false;
+        // shift the remainder left (by multiplying by 10)
+        remainder *= 10;
+    } while (leadingZeros ||                                             // keep working while we only have zeros
+             len % 2 != 0 ||                                          // or the number of digits is odd
+             memcmp(result, result + len / 2, len / 2) != 0); // and there's no recurring decimal found
+    return len / 2;
 }
 
 long long testOfDivisibility(long long divider) { // проверка на делимость
