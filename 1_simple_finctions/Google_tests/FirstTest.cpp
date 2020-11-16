@@ -393,7 +393,7 @@ TEST (SimpleFunctionsTests, TestOfPeriodLength){
     ASSERT_EQ(expectedResult3, legth3);
 }
 
-TEST (SimpleFunctionsTests, TestFractionPeriod) {
+TEST (SimpleFunctionsTests, TestRecurringDecimalSize) {
     ASSERT_EQ(130, recurringDecimalSize(131));
     ASSERT_EQ(72084, recurringDecimalSize(937131));
     ASSERT_EQ(2, recurringDecimalSize(33));
