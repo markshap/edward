@@ -661,7 +661,7 @@ int recurringDecimalSize(int denominator) {
             len++;
             result[len] = 0;
         }
-        // since we divide 1 to N>1, the integer part always consists of one digit (zero)
+        // since we divide 1 by N>1, the integer part always consists of one digit (zero)
         integerPart = false;
         // shift the remainder left (by multiplying by 10)
         remainder *= 10;
